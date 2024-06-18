@@ -24,9 +24,6 @@ class DeleteMeme(Interactor[uuid.UUID, None]):
         meme = await self.meme_gateway.get(id=meme_id)
         self.meme_service.check_meme(meme)
         filename = self.meme_service.get_filename(meme)
-        await self.request.delete_file(
-            '',
-            filename=filename
-        )
+        await self.request.delete_file(url=filename)
         await self.meme_gateway.delete(id=meme_id)
         await self.uow.commit()
