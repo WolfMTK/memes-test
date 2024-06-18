@@ -39,11 +39,11 @@ async def update_image(
 
 
 @image_router.delete(
-    '',
+    '/{filename}',
     status_code=status.HTTP_204_NO_CONTENT
 )
 async def delete_image(
-        filename: str = Form(),
+        filename: str,
         ioc: ImageInteractorFactory = Depends()
 ) -> None:
     async with ioc.delete_image() as delete_image_factory:
