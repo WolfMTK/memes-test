@@ -22,4 +22,6 @@
 
 2. Activate the virtual environment: `. venv/bin/acivate`
 
-3. Run tests: `pytest`
+3. Install dependencies: 'pip install -e .[dev]'
+
+4. Run tests: `pytest`
