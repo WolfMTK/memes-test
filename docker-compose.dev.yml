@@ -1,0 +1,29 @@
+version: '3.2'
+
+services:
+  postgres_dev:
+    image: postgres:16.3
+    env_file: .env_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  s3:
+    image: minio/minio
+    command: server /data --console-address ':9001'
+    env_file: .env_dev
+    healthcheck:
+      test: [ 'CMD', 'mc', 'ready', 'local' ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - minio_data:/data
+
+volumes:
+  postgres_data:
+  minio_data:

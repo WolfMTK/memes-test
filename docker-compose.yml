@@ -1,0 +1,36 @@
+version: '3.2'
+
+services:
+  postgres:
+    image: postgres:16.3
+    env_file: .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  s3:
+    image: minio/minio
+    command: server /data --console-address ':9001'
+    env_file: .env
+    healthcheck:
+      test: [ 'CMD', 'mc', 'ready', 'local' ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - '9000:9000'
+    volumes:
+      - minio_data:/data
+
+  web:
+    build: ./memes-service
+    env_file: ./memes-service/.env
+    ports:
+      - '5000:8000'
+
+  minio-service:
+    build: ./minio-service
+    env_file: ./minio-service/.env
+
+volumes:
+  postgres_data:
+  minio_data:
