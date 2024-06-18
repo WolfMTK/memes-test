@@ -43,9 +43,9 @@ class AioHTTPRequest(AbstractAioHTTPRequest):
             url: str,
             **kwargs: Any
     ) -> None:
-        url = urljoin(self.url, url)
+        url = urljoin(self.url + '/', url)
         async with aiohttp.ClientSession() as session:
-            async with session.delete(url, data=kwargs) as response:
+            async with session.delete(url) as response:
                 if response.status in (HTTPStatus.BAD_REQUEST,
                                        HTTPStatus.INTERNAL_SERVER_ERROR):
                     raise InvalidCodeError('Oops! Something went wrong')
