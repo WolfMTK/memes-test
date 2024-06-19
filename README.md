@@ -22,7 +22,7 @@
 
     * Добавить необходимые переменные окружения (MINIO_ENDPOINT - адрес до MinIO, MINIO_ACCESS_KEY - access key или
       логин, MINIO_SECRET_KEY - secret key или пароль, MINIO_SECURE - состояние соединения, MINIO_BUCKET_NAME - название
-      корзины, где будут сохранятся файлы)
+      корзины, где будут сохраняться файлы)
 
     * Поставить необходимые зависимости: `cd minio-service/ && pip install -e .[dev]`
 
